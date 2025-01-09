@@ -2,25 +2,22 @@ import pycreate2
 from math import pi, sin, cos, atan2, sqrt
 import time
 
-import pycreate2.createSerial
-
 if __name__ == "__main__":
-    # Create a Create2 Bot
+    # Crea un Bot (Create2)
     port = 'COM3'
     baud = {
         'default': 115200,
-        'alt': 19200  # shouldn't need this unless you accidentally set it to this
+        'alt': 19200  
     }
     
-
     bot = pycreate2.Create2(port=port, baud=baud['default'])
     
     bot.start()
     bot.full()
 
-Rx2=72 #en mm
+Rx2=72 # mm
 nCe=508.8
-D_ENTRERUEDAS = 235 #en mm
+D_ENTRERUEDAS = 235 # mm
 FACTOR_CONVERSION = Rx2*pi/nCe
 VELOCIDAD_MOTORES = 150
 VALORMAX_ENCODER = 65535 
@@ -30,7 +27,7 @@ VALORMAX_ENCODER = 65535
 # Toma valores anterior y actual de un encoder y segun velocidad y giro,
 #  devuelvo el salto de 65535 a 0 o viceversa si corresponde, sino 0.
 def verificarSalto(valEncoderActual, valEncoderAnterior, saltoAnterior):
-    #print("Verifico salto:-act,ant,salto",valEncoderActual,valEncoderAnterior,saltoAnterior)
+    
     if saltoAnterior != 0: #Si ha ocurrido un salto, lo devuelvo para que no existan problemas.
         return saltoAnterior
     if (valEncoderActual - valEncoderAnterior) > 60000: #60000 cuentas "de mas" en encoder, en diferencia entre lectura actual y anterior
@@ -61,10 +58,6 @@ def actuar(valor, velocidad, giro=0):
     s_Inicial = (sEncoderDer_Inicial + sEncoderIzq_Inicial) / 2
     tita_Inicial = (sEncoderDer_Inicial - sEncoderIzq_Inicial) / D_ENTRERUEDAS #En radianes!
 
-    #print("encoder izq: (s,enc)", sEncoderIzq_Inicial, sensores.encoder_counts_left) 
-    #print("encoder der: (s,enc)", sEncoderDer_Inicial, sensores.encoder_counts_right)
-    #print("s inicial: ", s_Inicial) 
-    #print("tita inicial: ", tita_Inicial*180/pi)
 
     time.sleep(0.5)
     if giro: #Si giro hacia la derecha, la velocidad sera dada positivo, sino negativa, generando el giro deseado
