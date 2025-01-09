@@ -38,7 +38,7 @@ def verificarSalto(valEncoderActual, valEncoderAnterior, saltoAnterior):
         return 65535
     else:
         return 0
-
+#####
 
 #Funcion actuar: 
 # Toma: -valor deseado (en mm o en radianes segun que actuacion quiero realizar), 
@@ -104,6 +104,7 @@ def actuar(valor, velocidad, giro=0):
         titaRecorrido = -titaRecorrido
     
     return sRecorrido, titaRecorrido
+#####
 
 #Funcion Desplazarse: Avanza/Retrocede segun "retrocedo" y el "valor" deseado. 
 # Devuelve delta_s y delta_tita para calcular odometria
@@ -120,6 +121,7 @@ def desplazarse(valor,retrocedo=0):
     delta_s, delta_tita = actuar(valor, velocidad)
     
     return delta_s, delta_tita
+#####
 
 #Funcion Girar: Gira en sentido horario ("haciaDerecha"=1) / antihorario ("haciaDerecha"=0 es decir "hacia izquierda") el "valor" en grados dado. 
 # Devuelve delta_s y delta_tita para calcular odometria
@@ -138,6 +140,7 @@ def girar(valor, haciaDerecha=0):
     delta_s, delta_tita = actuar(valor_rad, velocidad, giro=1)
     
     return delta_s, delta_tita
+#####
 
 ### Tarea autonoma: ir a coordenadas (x,y)
 def ir_coordenadas(x_deseado, y_deseado):
@@ -167,6 +170,7 @@ def ir_coordenadas(x_deseado, y_deseado):
     cargar_odometria(s_desp, tita_desp,"Mov.coord - desplazamiento") 
 
     print("Se ha llegado al destino: (", x, y, ")\n")
+#####
 
 ### Tarea autonoma: moverse por un cuadrado segun el 'tamano' deseado
 def moverse_cuadrado(tamano):
@@ -178,6 +182,7 @@ def moverse_cuadrado(tamano):
         s, tita = desplazarse(tamano)
         cargar_odometria(s, tita,"Cuadrado - desplazamiento")    
     print("Cuadrado realizado.")
+#####
 
 ### ODOMETRIA:
 
@@ -191,6 +196,7 @@ def mostrar_odometria():
         i+=1
     #Muestro posicion actual
     print("Posicion actual","x:",round(x,3),"mm, y:",round(y,3),"mm, tita:",round(tita*180/pi,1),"°")
+#####
 
 # Calculo la odometria y la cargo en las variables globales de historico y posicion actual
 def cargar_odometria(delta_s, delta_tita, tipo):
@@ -214,9 +220,9 @@ def cargar_odometria(delta_s, delta_tita, tipo):
     y = y_nuevo
     tita = tita_nuevo
     print("Nuevos valores de posicion (x, y, tita):", round(x,2), round(y,2), round(tita*180/pi,1),"\n")
+#####
 
-########
-
+# Lectura de entrada:
 def leerEntrada(ingreso):
     valor=0
 
@@ -272,7 +278,7 @@ def leerEntrada(ingreso):
             print("Ocurrio un error:", e)
     elif(ingreso=="o"): #muestra de odometria
         mostrar_odometria()
-
+#####
 
 # Bucle principal del programa #
 x = y = tita = 0 #Variables globales
